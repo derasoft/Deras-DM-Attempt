@@ -1,0 +1,11 @@
+<div class="header">
+    <a href="/"><img src="/static/logo.png" alt="лого" width="200"></a>
+    <div>Панель с сылками</div>
+    <div>
+        {{#if user}}
+            <p>Добро пожаловать, {{user.log}} | <a href="/auth/logout">Выйти</a></p>
+        {{else}}
+            <p><a href="/auth/log">Войдите</a> или <a href="/auth/reg">зарегистрируйтесь</a></p>
+        {{/if}}
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<h2>{{editor.subtitle}}</h2>
+<form method="post">
+    <input type="number" name="id" value="{{char.id}}" hidden>
+    <input type="number" name="moduleId" value="{{editor.moduleId}}" hidden>
+    <p>Имя: <br><input type="text" name="name" value="{{char.name}}"></p>
+    <p>Внешность: <br><input type="text" name="appearance" value="{{char.appearance}}"></p>
+    <p>Характер: <br><input type="text" name="temper" value="{{char.temper}}"></p>
+    <p>Биография: <br><input type="text" name="bio" value="{{char.bio}}"></p>
+    <p>Навыки: <br><input type="text" name="skills" value="{{char.skills}}"></p>
+    <p><input type="submit" value="{{editor.sendText}}"></p>
+</form>

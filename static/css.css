@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: stretch;
+    align-content: center;
+}
+.global-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.left-panel {
+    width: 20%
+}
+.right-panel {
+    width: 20%
+}
+.main-panel {
+    width: 60%
+}
+.post {
+    border: 3px solid gray;
+}
+.hr-dashed {
+    border: none;
+    border-top: 1px dashed;
+}

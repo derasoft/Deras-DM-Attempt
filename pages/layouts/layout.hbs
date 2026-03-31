@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/css.css">
+</head>
+<body>
+    {{> header}}
+    <div class="global-container">
+        <div class="left-panel">
+            {{#if module}}
+                <div>
+                    <p><b>Комнаты</b></p>
+                    <ul>{{>leftMenuModuleRooms}}</ul>
+                </div>
+            {{/if}}
+            {{#if user}}
+                <div>
+                    <p><b>Модули</b></p>
+                    {{{listOfModules modulesList.asMaster}}}
+                    <hr class="hr-dashed">
+                    {{{listOfModules modulesList.asPlayer}}}
+                    <p><a href="/module/newModule">Создать модуль</a></p>
+                </div>
+            {{/if}}
+        </div>
+        <main class="main-panel">
+            {{{body}}}
+        </main>
+        <div class="right-panel">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec bibendum leo in nisl posuere dapibus. Sed lacinia elit at ornare fermentum. Quisque non diam placerat lacus euismod fringilla. Vestibulum hendrerit lacinia eros eleifend euismod. Nunc lacus odio, imperdiet a porta quis, mattis et risus. Praesent id rutrum metus. Morbi eget aliquet purus. Quisque odio nisl, venenatis sed aliquet ac, faucibus in justo. Aenean vel lacus volutpat, pharetra dolor sagittis, rutrum est. Nunc efficitur facilisis leo id viverra. Etiam quis eros viverra, pulvinar ipsum nec, blandit metus. Nunc euismod nisl at nisl lacinia interdum. Nunc et diam quis tortor malesuada ultricies a sit amet nisi. Etiam ultrices lacus at accumsan dictum. Suspendisse vitae massa vulputate, interdum ante laoreet, fermentum sem.
+                In mi nulla, elementum eget ligula at, congue pharetra elit. Sed tincidunt metus odio, id accumsan eros suscipit eget. Aliquam pretium, nibh eu tristique tincidunt, lectus lectus blandit leo, id commodo elit nunc sit amet mi. Duis sit amet arcu lobortis dolor placerat tincidunt in et dui. Suspendisse potenti. Integer tincidunt, augue id ornare hendrerit, libero neque aliquet erat, vel euismod enim quam ut sapien. Nullam malesuada odio vitae diam aliquam euismod. Pellentesque facilisis mauris leo, mollis molestie augue interdum ut. Nunc ac hendrerit felis, quis placerat magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus leo interdum, rhoncus elit sit amet, iaculis nulla.
+                Quisque vel varius felis. Nullam ultricies eu odio accumsan aliquet. Mauris scelerisque, nisi id vehicula pretium, libero risus sollicitudin tortor, id faucibus nisi arcu in risus. Donec aliquet mauris quis hendrerit scelerisque. Aliquam non erat mi. Donec faucibus nunc vel urna iaculis lacinia. Vivamus sed lobortis arcu, eget malesuada odio.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
