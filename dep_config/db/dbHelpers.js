@@ -1,10 +1,15 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const db = require("./dbConnect")
+export const db = require("./dbConnect")
 const md5 = require('js-md5')
 
 export async function getUserByNickname(nick) {
-    let x =await db.Users.findOne({where: {log: nick}});
+    let x = await db.Users.findOne({where: {log: nick}});
+    if (x == null) return null
+    else return x.dataValues;
+}
+export async function getUserById(id) {
+    let x = await db.Users.findOne({where: {id: id}});
     if (x == null) return null
     else return x.dataValues;
 }
@@ -86,13 +91,23 @@ export async function getCharById(id) {
         skills: char.skills,
     }
 }
-export async function publishNewPost(id, text) {
+export async function getCharsOfUserInModule(userId, moduleId) {
+    let x = await db.PlayersOfModules.findAll({where: {playerId: userId, moduleId: moduleId}});
+    for (let c in x) {
+        x[c] = x[c].dataValues;
+        x[c].charlist = JSON.parse(x[c].charlist);
+    }
+    return x;
+}
+export async function publishNewPost(id, character, text) {
     let last = await db.Posts.max('order',
         {
             where: {roomId: id},
         })
+    if (last == null) last = 0;
     await db.Posts.create({
         roomId: id,
+        authorId: character,
         order: last+1,
         content: text,
     })
@@ -118,4 +133,16 @@ export async function newChar(data) {
         moduleId: data.moduleId,
         charlist: JSON.stringify(data.charlist),
     })
+}
+export async function newRoom(data) {
+    await db.Rooms.create({
+        id: data.id,
+        moduleId: data.moduleId,
+        players: '[]',
+        isClosed: 0,
+    });
+}
+export async function rawAsFuck(q) {
+    const [results, metadata] = await db.db.query(q);
+    return results
 }

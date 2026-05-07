@@ -1,7 +1,7 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const sqlite3 = require('sqlite3').verbose();
-const Sequelize = require("sequelize");
+export const Sequelize = require("sequelize");
 
 export const db = new Sequelize({
     dialect: "sqlite",
@@ -49,5 +49,7 @@ export const WatchersOfModules = db.define("WatchersOfModules", {
     playerId: {type: Sequelize.INTEGER, allowNull: false},
     moduleId: {type: Sequelize.INTEGER, allowNull: false},
 });
+
+// Results will be an empty array and metadata will contain the number of affected rows.
 // db.sync({alter: true});
 // db.sync({force: true});

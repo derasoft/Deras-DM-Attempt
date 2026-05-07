@@ -1,8 +1,17 @@
 <h1>{{room.name}}</h1>
-{{{listOfPosts posts}}}
+{{#each posts}}
+    <div class="post">{{authorName}}<br>{{content}}</div>
+{{/each}}
 <form action="/module/sendPost" method="post">
     <!--Эта хуйня небезопасна, не забыть переписать, когда пойму как-->
     <input name="roomId" value="{{room.id}}" hidden>
+    <input name="moduleId" value="{{module.id}}" hidden>
+    <select name="charId">
+        {{#each userChars}}
+            <option value="{{id}}">{{charlist.name}}</option>
+        {{/each}}
+    </select>
+    <br>
     {{>textEditor name="text"}}
     <br>
     <input type="submit" value="Отправить">

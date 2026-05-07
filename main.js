@@ -54,13 +54,18 @@ expr.app.use((req, res, next) => {
 //получение списка модулей пользователя
 expr.app.use(async (req, res, next) => {
     if (req.cookies.userJWT === undefined) return next();
-    let pla = await dbhelp.getModulesOfUserAsMaster(res.params.user.id);
-    let mas = await dbhelp.getModulesOfUserAsPlayer(res.params.user.id);
+    let mas = await dbhelp.getModulesOfUserAsMaster(res.params.user.id);
+    let pla = await dbhelp.getModulesOfUserAsPlayer(res.params.user.id);
     for (let c1 in pla) {
         for (let c2 in mas) {
             if (pla[c1].id === mas[c2].id) {
-                pla.splice(c1, 1);
+                delete pla[c1];
             }
+        }
+    }
+    for (let c in pla) {
+        if (mas[c] === undefined) {
+            pla.splice(c1, 1);
         }
     }
     res.params.modulesList = {asMaster: mas, asPlayer: pla};
@@ -75,7 +80,6 @@ expr.app.get('/stub', (req, res) => {
     res.send("Я страница-заглушка. Если ты сюда попал, кто-то забыл добавить сюда страницу, либо она должна тут появиться в будущем.")
 })
 expr.app.get("/", async (req, res) => {
-    res.params.title = "openDM";
     res.render("index", res.params);
 })
 

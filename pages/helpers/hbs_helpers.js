@@ -5,7 +5,8 @@ module.exports = {
     listOfModules: function(inp) {
         let undoubling = {};
         for (let c of inp) {
-            undoubling[c.id] = c.name;
+            if (c === undefined) continue
+            else undoubling[c.id] = c.name;
         }
         let outp = ``;
         for (let c in undoubling) {

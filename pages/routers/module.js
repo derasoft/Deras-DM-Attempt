@@ -47,8 +47,8 @@ router.route("/:moduleId/joinModule")
         res.redirect('/module/' + data.moduleId);
     })
 router.post("/sendPost", async (req, res) => {
-    await dbhelp.publishNewPost(req.body.roomId, req.body.text);
-    res.redirect('/module/room/' + req.body.roomId);
+    await dbhelp.publishNewPost(req.body.roomId, req.body.charId, req.body.text);
+    res.redirect('/module/' + req.body.moduleId + '/room/' + req.body.roomId);
 })
 router.get("/:moduleId/room/:roomId", async (req, res) => {
     res.params.room = await dbhelp.getRoomById(req.params.roomId);
@@ -60,6 +60,18 @@ router.get("/:moduleId/room/:roomId", async (req, res) => {
     }
     res.params.module = await dbhelp.getModuleById(req.params.moduleId);
     res.params.posts = await dbhelp.getPostsOfRoom(req.params.roomId);
+    res.params.userChars = await dbhelp.getCharsOfUserInModule(res.params.user.id, req.params.moduleId);
+    for (c in res.params.userChars) {
+        res.params.userChars[c].playerId = await dbhelp.getUserById(res.params.userChars[c].playerId);
+        delete res.params.userChars[c].playerId.pass;
+    }
+    for (c in res.params.posts) {
+        for (c2 in res.params.userChars) {
+            if (res.params.posts[c].authorId === res.params.userChars[c2].id) {
+                res.params.posts[c].authorName = res.params.userChars[c2].charlist.name;
+            }
+        }
+    }
     res.params.title = res.params.room.name;
     res.render("room", res.params);
 })
